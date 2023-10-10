@@ -1,0 +1,14 @@
+GET /amazon-reviews/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+cd D:\GitHub Projects\DMIR Mini Project
+
+curl -X DELETE "localhost:9200/sinhala-metaphor-poems?pretty"
+
+curl -X PUT "localhost:9200/sinhala-metaphor-poems?pretty" -H "Content-Type: application/json" -d @mapping_file.json
+
+curl -X POST "localhost:9200/sinhala-metaphor-poems/_bulk?pretty" -H "Content-Type: application/json" --data-binary @data_file_sinhala.json
