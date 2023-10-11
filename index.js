@@ -1,32 +1,79 @@
-const express = require('express');
+const express = require("express");
+const elasticsearch = require("elasticsearch");
+
 const app = express();
+
 const port = 3000;
-const elasticsearch = require('elasticsearch'); // Import the elasticsearch library
 
 const client = new elasticsearch.Client({
-  host: 'http://localhost:9200', // Adjust the Elasticsearch server URL as needed
+  host: "http://localhost:9200",
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
+app.use(express.json());
+
+app.get("/metaphor-search-engine", (req, res) => {
+  res.send("Hello, World!");
 });
 
-// Create a new route to retrieve data from Elasticsearch
-app.get('/amazon-reviews', (req, res) => {
-  // Use the Elasticsearch client to perform a match_all query
-  client.search({
-    index: 'amazon-reviews',
-    body: {
-      query: {
-        match_all: {},
+app.get("/getAll", (req, res) => {
+  client
+    .search({
+      index: "sinhala-metaphor-poems",
+      body: {
+        query: {
+          match_all: {},
+        },
       },
-    },
-  })
+    })
     .then((response) => {
       res.json(response.hits.hits);
     })
     .catch((error) => {
-      res.status(500).json({ error: 'Error retrieving data from Elasticsearch' });
+      res.status(500).json({ error: "Error retrieving all the data" });
+    });
+});
+
+app.get("/searchByTarget", async (req, res) => {
+  const targetMetaphore = await req.body.targetMetaphore;
+
+  client
+    .search({
+      index: "sinhala-metaphor-poems",
+      body: {
+        query: {
+          match: {
+            "target_metaphor": targetMetaphore,
+          }
+        }
+      }
+    })
+    .then((response) => {
+      res.json(response.hits.hits);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: "Error retrieving target data" });
+    });
+});
+
+app.get("/searchBySource", async (req, res) => {
+  const sourceMetaphore = await req.body.sourceMetaphore;
+  
+  client
+    .search({
+      index: "sinhala-metaphor-poems",
+      body: {
+        query: {
+          match: {
+            "source_metaphor": sourceMetaphore,
+          }
+        }
+      }
+    })
+    .then((response) => {
+      res.json(response.hits.hits);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: "Error retrieving source data" });
     });
 });
 
