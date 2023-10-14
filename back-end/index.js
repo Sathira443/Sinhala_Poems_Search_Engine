@@ -1,15 +1,18 @@
 const express = require("express");
 const elasticsearch = require("elasticsearch");
+const path = require("path");
 
 const app = express();
 
-const port = 3000;
+const port = 5000;
 
 const client = new elasticsearch.Client({
   host: "http://localhost:9200",
 });
 
 app.use(express.json());
+
+// app.use(express.static(path.join()));
 
 app.get("/metaphor-search-engine", (req, res) => {
   res.send("Hello, World!");
@@ -71,6 +74,9 @@ app.get("/searchBySource", async (req, res) => {
     })
     .then((response) => {
       res.json(response.hits.hits);
+      // const hits = response.hits.hits;
+      // const poems = hits.map((hit) => hit._source.poems_text);
+      // res.json({ poems });
     })
     .catch((error) => {
       res.status(500).json({ error: "Error retrieving source data" });
