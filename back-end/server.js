@@ -12,9 +12,7 @@ const client = new elasticsearch.Client({
 
 app.use(express.json());
 
-// app.use(express.static(path.join()));
-
-app.get("/metaphor-search-engine", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("Hello, World!");
 });
 
