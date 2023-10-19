@@ -34,7 +34,7 @@ app.get("/getAll", (req, res) => {
     });
 });
 
-app.get("/searchByTarget", async (req, res) => {
+app.post("/searchByTarget", async (req, res) => {
   const targetMetaphore = await req.body.targetMetaphore;
 
   client
@@ -56,7 +56,7 @@ app.get("/searchByTarget", async (req, res) => {
     });
 });
 
-app.get("/searchBySource", async (req, res) => {
+app.post("/searchBySource", async (req, res) => {
   const sourceMetaphore = await req.body.sourceMetaphore;
   
   client
