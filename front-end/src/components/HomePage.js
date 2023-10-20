@@ -85,7 +85,7 @@ export default function HomePage() {
                   justifyContent="center"
                 >
                   <Button href="/searchPage" variant="contained">Search Metaphor</Button>
-                  <Button variant="outlined">See Resources</Button>
+                  <Button href="/addNewPage" variant="outlined">Add New Metaphor</Button>
                 </Stack>
               </Container>
             </Box>
