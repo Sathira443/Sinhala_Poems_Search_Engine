@@ -34,8 +34,8 @@ app.get("/getAll", (req, res) => {
     });
 });
 
-app.post("/searchByTarget", async (req, res) => {
-  const targetMetaphore = await req.body.targetMetaphore;
+app.post("/searchByMeaning", async (req, res) => {
+  const meaning = await req.body.meaning;
 
   client
     .search({
@@ -43,7 +43,7 @@ app.post("/searchByTarget", async (req, res) => {
       body: {
         query: {
           match: {
-            "target_metaphor": targetMetaphore,
+            "meaning": meaning,
           }
         }
       }
@@ -52,12 +52,12 @@ app.post("/searchByTarget", async (req, res) => {
       res.json(response.hits.hits);
     })
     .catch((error) => {
-      res.status(500).json({ error: "Error retrieving target data" });
+      res.status(500).json({ error: "Error retrieving meaning" });
     });
 });
 
-app.post("/searchBySource", async (req, res) => {
-  const sourceMetaphore = await req.body.sourceMetaphore;
+app.post("/searchByMetaphoricalTerm", async (req, res) => {
+  const metaphoricalTerm = await req.body.metaphorical_term;
   
   client
     .search({
@@ -65,7 +65,7 @@ app.post("/searchBySource", async (req, res) => {
       body: {
         query: {
           match: {
-            "source_metaphor": sourceMetaphore,
+            "metaphorical_term": metaphoricalTerm,
           }
         }
       }
@@ -77,7 +77,7 @@ app.post("/searchBySource", async (req, res) => {
       // res.json({ poems });
     })
     .catch((error) => {
-      res.status(500).json({ error: "Error retrieving source data" });
+      res.status(500).json({ error: "Error retrieving metaphorical term" });
     });
 });
 
