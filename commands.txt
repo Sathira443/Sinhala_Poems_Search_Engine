@@ -11,4 +11,4 @@ curl -X DELETE "localhost:9200/sinhala-metaphor-poems?pretty"
 
 curl -X PUT "localhost:9200/sinhala-metaphor-poems?pretty" -H "Content-Type: application/json" -d @mapping_file.json
 
-curl -X POST "localhost:9200/sinhala-metaphor-poems/_bulk?pretty" -H "Content-Type: application/json" --data-binary @data_file_sinhala.json
+curl -X POST "localhost:9200/sinhala-metaphor-poems/_bulk?pretty" -H "Content-Type: application/json" --data-binary @sinhala_data_file.json
