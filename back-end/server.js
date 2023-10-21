@@ -21,8 +21,17 @@ app.get("/getAll", (req, res) => {
     .search({
       index: "sinhala-metaphor-poems",
       body: {
+        size: 100,
         query: {
-          match_all: {},
+          bool: {
+            must: [
+              {
+                match: {
+                  metaphor_present: "yes"
+                }
+              }
+            ]
+          }
         },
       },
     })

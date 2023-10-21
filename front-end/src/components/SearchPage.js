@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import Translate from "@mui/icons-material/Translate";
@@ -16,7 +15,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
+import React, { useEffect, useState } from "react";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -39,7 +39,9 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-function BasicTable() {
+function MetaphorSearchResultTable({dataJson}) {
+  console.log("index_json", dataJson);
+  
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -55,18 +57,17 @@ function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
+          {dataJson.map((row, index) => (
+            <TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <TableCell>
+                {row.peom_Line}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{row.poem}</TableCell>
+              <TableCell align="right">{row.poet}</TableCell>
+              <TableCell align="right">{row.year_of_publish}</TableCell>
+              <TableCell align="right">{row.period}</TableCell>
+              <TableCell align="right">{row.metaphorical_term}</TableCell>
+              <TableCell align="right">{row.meaning}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -86,6 +87,7 @@ function MetaphorSearchBox() {
   );
 }
 
+
 function MeaningSearchBox() {
   return (
     <TextField
@@ -98,6 +100,18 @@ function MeaningSearchBox() {
 }
 
 export default function SearchPage() {
+  const [backendData, setBackendData] = useState([{}]);
+
+  useEffect(() => {
+    fetch("/getAll")
+      .then((response) => response.json())
+      .then((data) => {
+        setBackendData(data.map((item) => item._source));
+        console.log("Backend Data:", data);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []);
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -125,11 +139,15 @@ export default function SearchPage() {
             >
               <MetaphorSearchBox />
               <MeaningSearchBox />
-              <Button variant="contained" startIcon={<SearchIcon />} sx={{ width: '350px' }}>
+              <Button
+                variant="contained"
+                startIcon={<SearchIcon />}
+                sx={{ width: "350px" }}
+              >
                 Search
               </Button>
             </Stack>
-            <BasicTable />
+            <MetaphorSearchResultTable dataJson={backendData}/>
           </Stack>
         </Container>
       </main>
