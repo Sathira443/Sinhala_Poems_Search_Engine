@@ -12,10 +12,6 @@ const client = new elasticsearch.Client({
 
 app.use(express.json());
 
-app.get("/test", (req, res) => {
-  res.send("Hello, World!");
-});
-
 app.get("/getAll", (req, res) => {
   client
     .search({
@@ -43,17 +39,31 @@ app.get("/getAll", (req, res) => {
     });
 });
 
-app.post("/searchByMeaning", async (req, res) => {
-  const meaning = await req.body.meaning;
+app.get("/search", async (req, res) => {
+  console.log(req.query);
+  const meaning = await req.query.meaning;
+  const metaphorical_term = await req.query.metaphorical_term;
 
   client
     .search({
       index: "sinhala-metaphor-poems",
       body: {
         query: {
-          match: {
-            "meaning": meaning,
+          bool:{
+            should:[
+              {
+                match:{
+                  metaphorical_term: metaphorical_term
+                }
+              },
+              {
+                match:{
+                  meaning: meaning
+                }
+              }
+            ]
           }
+          
         }
       }
     })
@@ -62,31 +72,6 @@ app.post("/searchByMeaning", async (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({ error: "Error retrieving meaning" });
-    });
-});
-
-app.post("/searchByMetaphoricalTerm", async (req, res) => {
-  const metaphoricalTerm = await req.body.metaphorical_term;
-  
-  client
-    .search({
-      index: "sinhala-metaphor-poems",
-      body: {
-        query: {
-          match: {
-            "metaphorical_term": metaphoricalTerm,
-          }
-        }
-      }
-    })
-    .then((response) => {
-      res.json(response.hits.hits);
-      // const hits = response.hits.hits;
-      // const poems = hits.map((hit) => hit._source.poems_text);
-      // res.json({ poems });
-    })
-    .catch((error) => {
-      res.status(500).json({ error: "Error retrieving metaphorical term" });
     });
 });
 
