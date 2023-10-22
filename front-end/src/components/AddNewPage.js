@@ -37,16 +37,24 @@ export default function AddNewPage() {
 
   const handleInsert = () => {
     console.log("In");
+
+    const poem = document.getElementById("poem-insert").value;
+    const poet = document.getElementById("poet-insert").value;
+    const period = document.getElementById("era-insert").value;
+    const year_of_publish = document.getElementById("year-insert").value;
+    const poem_Line = document.getElementById("poem-line-insert").value;
+    const metaphor = document.getElementById("metaphor-insert").value;
+    const meaning = document.getElementById("meaning-insert").value;
     const documentData = {
-      poem: "Puthu Hinahei",
-      poet: "Abeysinghe Athurupana",
-      period: "21",
-      year_of_publish: "2019",
-      poem_Line: "ඉදුනිල් තරු දිලෙන වෙලේ",
+      poem,
+      poet,
+      period,
+      year_of_publish,
+      poem_Line,
       metaphor_present: "yes",
       metaphor_count: "1",
-      metaphorical_term: "ඉදුනිල් තරු දිලෙන වෙලේ",
-      meaning: "නිල් මැනික් වලට තරු සමාන කර ඇත",
+      metaphor,
+      meaning
     };
 
     fetch("/insert", {
