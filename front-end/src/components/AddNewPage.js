@@ -35,6 +35,34 @@ export default function AddNewPage() {
     setAnchorElNav(null);
   };
 
+  const handleInsert = () => {
+    console.log("In");
+    const documentData = {
+      poem: "Puthu Hinahei",
+      poet: "Abeysinghe Athurupana",
+      period: "21",
+      year_of_publish: "2019",
+      poem_Line: "ඉදුනිල් තරු දිලෙන වෙලේ",
+      metaphor_present: "yes",
+      metaphor_count: "1",
+      metaphorical_term: "ඉදුනිල් තරු දිලෙන වෙලේ",
+      meaning: "නිල් මැනික් වලට තරු සමාන කර ඇත",
+    };
+
+    fetch("/insert", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(documentData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Document inserted successfully:", data);
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -210,12 +238,16 @@ export default function AddNewPage() {
                 variant="outlined"
               />
             </Stack>
-            <Button variant="contained" startIcon={<SendIcon />} fullWidth>
+            <Button
+              variant="contained"
+              startIcon={<SendIcon />}
+              onClick={handleInsert}
+              fullWidth
+            >
               Add
             </Button>
           </Stack>
         </Container>
-        
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">

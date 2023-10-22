@@ -95,6 +95,22 @@ app.get("/search", async (req, res) => {
     });
 });
 
+app.post('/insert', async (req, res) => {
+  try {
+    const document = req.body;
+
+    const response = await client.index({
+      index: "sinhala-metaphor-poems",
+      body: document,
+    });
+
+    res.json({ result: response });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error inserting document into Elasticsearch.' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

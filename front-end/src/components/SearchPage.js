@@ -32,8 +32,6 @@ const darkTheme = createTheme({
   },
 });
 
-const pages = ["Products", "Pricing", "Blog"];
-
 function MetaphorSearchResultTable({ dataJson }) {
   return (
     <TableContainer component={Paper}>
