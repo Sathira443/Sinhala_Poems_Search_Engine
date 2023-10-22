@@ -11,6 +11,11 @@ import Container from "@mui/material/Container";
 import SendIcon from "@mui/icons-material/Send";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Link from "@mui/material/Link";
+import MenuItem from "@mui/material/MenuItem";
 
 const defaultTheme = createTheme();
 const darkTheme = createTheme({
@@ -20,16 +25,119 @@ const darkTheme = createTheme({
 });
 
 export default function AddNewPage() {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <Translate sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Add New Metaphor Page
-          </Typography>
-        </Toolbar>
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Translate sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/homePage"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              සිංහල කවි සංචය
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                <MenuItem key="homePageKey" href="/homePage">
+                  <Link href="/homePage" underline="none" color={"inherit"}>
+                    <Typography textAlign="center">Home</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem key="searchPageKey" href="/searchPage">
+                  <Link href="/searchPage" underline="none" color={"inherit"}>
+                    <Typography textAlign="center">Search</Typography>
+                  </Link>
+                </MenuItem>
+              </Menu>
+            </Box>
+            <Translate sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="/homePage"
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              සිංහල කවි සංචය
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <Button
+                key={"homePageKey"}
+                href="/homePage"
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Home
+              </Button>
+              <Button
+                key={"searchPageKey"}
+                href="/searchPage"
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Search
+              </Button>
+            </Box>
+          </Toolbar>
+        </Container>
       </AppBar>
       <main>
         <Container maxWidth="md">
