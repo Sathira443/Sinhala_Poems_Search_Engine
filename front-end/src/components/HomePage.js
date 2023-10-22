@@ -1,7 +1,6 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
-import Translate from "@mui/icons-material/Translate";
 import CssBaseline from "@mui/material/CssBaseline";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -13,6 +12,10 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Grid } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 function Copyright() {
   return (
@@ -35,16 +38,81 @@ const darkTheme = createTheme({
 });
 
 export default function HomePage() {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <Translate sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Home Page
-          </Typography>
-        </Toolbar>
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                <MenuItem key={"searchKey"} onClick={handleCloseNavMenu}>
+                  <Link href="/searchPage" underline="none" color={"inherit"}>
+                    <Typography textAlign="center">Search</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem key={"addNewKey"} onClick={handleCloseNavMenu}>
+                  <Link href="/addNewPage" underline="none" color={"inherit"}>
+                    <Typography textAlign="center">Add New</Typography>
+                  </Link>
+                </MenuItem>
+              </Menu>
+            </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <Button
+                href="/searchPage"
+                key={"searchKey"}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Search
+              </Button>
+              <Button
+                href="/addNewPage"
+                key={"addNewKey"}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Add New
+              </Button>
+            </Box>
+          </Toolbar>
+        </Container>
       </AppBar>
       <main>
         {/* Hero unit */}
@@ -65,7 +133,7 @@ export default function HomePage() {
                   color="text.primary"
                   gutterBottom
                 >
-                  Sinhala Kavi Sanchaya
+                  සිංහල කවි සංචය
                 </Typography>
                 <Typography
                   variant="h6"
@@ -84,8 +152,12 @@ export default function HomePage() {
                   spacing={2}
                   justifyContent="center"
                 >
-                  <Button href="/searchPage" variant="contained">Search Metaphor</Button>
-                  <Button href="/addNewPage" variant="outlined">Add New Metaphor</Button>
+                  <Button href="/searchPage" variant="contained">
+                    Search Metaphor
+                  </Button>
+                  <Button href="/addNewPage" variant="outlined">
+                    Add New Metaphor
+                  </Button>
                 </Stack>
               </Container>
             </Box>
@@ -128,8 +200,7 @@ export default function HomePage() {
           color="text.secondary"
           component="p"
         >
-          Computer Science and Engineering Department, University of Moratuwa,
-          Sri Lanka
+          Educational Purposes Only
         </Typography>
         <Copyright />
       </Box>
@@ -168,23 +239,11 @@ const itemData = [
     title: "P.B. Wijesundara",
   },
   {
-    img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-    title: "Fern",
+    img: "https://upload.wikimedia.org/wikipedia/commons/2/24/Saman_Tilakasiri%2C_writer_and_poet_of_Sri_Lanka_.jpg",
+    title: "Saman Thilakasiri",
   },
   {
-    img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-    title: "Mushrooms",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-    title: "Tomato basil",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-    title: "Sea star",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-    title: "Bike",
+    img: "https://i0.wp.com/thuppahis.com/wp-content/uploads/2017/04/aaaa-obey.jpg?ssl=1",
+    title: "Rajini Obesekara",
   },
 ];
