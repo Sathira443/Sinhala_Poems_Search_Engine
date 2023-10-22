@@ -18,6 +18,7 @@ import Paper from "@mui/material/Paper";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useEffect, useState } from "react";
 
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const defaultTheme = createTheme();
@@ -27,21 +28,7 @@ const darkTheme = createTheme({
   },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
-function MetaphorSearchResultTable({dataJson}) {
-  console.log("index_json", dataJson);
-  
+function MetaphorSearchResultTable({ dataJson }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -58,10 +45,11 @@ function MetaphorSearchResultTable({dataJson}) {
         </TableHead>
         <TableBody>
           {dataJson.map((row, index) => (
-            <TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell>
-                {row.peom_Line}
-              </TableCell>
+            <TableRow
+              key={index}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell>{row.peom_Line}</TableCell>
               <TableCell align="right">{row.poem}</TableCell>
               <TableCell align="right">{row.poet}</TableCell>
               <TableCell align="right">{row.year_of_publish}</TableCell>
@@ -76,38 +64,25 @@ function MetaphorSearchResultTable({dataJson}) {
   );
 }
 
-function MetaphorSearchBox() {
-  return (
-    <TextField
-      fullWidth
-      id="metaphor-search"
-      label="Serach Metaphor"
-      variant="outlined"
-    />
-  );
-}
-
-
-function MeaningSearchBox() {
-  return (
-    <TextField
-      fullWidth
-      id="meaning-search"
-      label="Serach Meaning"
-      variant="outlined"
-    />
-  );
-}
-
 export default function SearchPage() {
-  const [backendData, setBackendData] = useState([{}]);
+  const [backendData, setBackendData] = useState([]);
+  const [metaphorQuery, setMetaphorQuery] = useState("");
+  const [meaningQuery, setMeaningQuery] = useState("");
+
+  const handleSearch = () => {
+    fetch(`/search?metaphorical_term=${metaphorQuery}&meaning=${meaningQuery}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setBackendData(data.map((item) => item._source));
+      })
+      .catch((error) => console.error("Error:", error));
+  };
 
   useEffect(() => {
     fetch("/getAll")
       .then((response) => response.json())
       .then((data) => {
         setBackendData(data.map((item) => item._source));
-        console.log("Backend Data:", data);
       })
       .catch((error) => console.error("Error:", error));
   }, []);
@@ -137,17 +112,32 @@ export default function SearchPage() {
               spacing={3}
               justifyContent="center"
             >
-              <MetaphorSearchBox />
-              <MeaningSearchBox />
+              <TextField
+                fullWidth
+                id="metaphor-search"
+                label="Search Metaphor"
+                variant="outlined"
+                value={metaphorQuery}
+                onChange={(e) => setMetaphorQuery(e.target.value)}
+              />
+              <TextField
+                fullWidth
+                id="meaning-search"
+                label="Search Meaning"
+                variant="outlined"
+                value={meaningQuery}
+                onChange={(e) => setMeaningQuery(e.target.value)}
+              />
               <Button
                 variant="contained"
                 startIcon={<SearchIcon />}
                 sx={{ width: "350px" }}
+                onClick={handleSearch}
               >
                 Search
               </Button>
             </Stack>
-            <MetaphorSearchResultTable dataJson={backendData}/>
+            <MetaphorSearchResultTable dataJson={backendData} />
           </Stack>
         </Container>
       </main>
