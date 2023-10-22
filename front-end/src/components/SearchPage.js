@@ -17,7 +17,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useEffect, useState } from "react";
-
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Link from "@mui/material/Link";
+import MenuItem from "@mui/material/MenuItem";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -27,6 +31,8 @@ const darkTheme = createTheme({
     mode: "dark",
   },
 });
+
+const pages = ["Products", "Pricing", "Blog"];
 
 function MetaphorSearchResultTable({ dataJson }) {
   return (
@@ -69,6 +75,17 @@ export default function SearchPage() {
   const [metaphorQuery, setMetaphorQuery] = useState("");
   const [meaningQuery, setMeaningQuery] = useState("");
 
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
   const handleSearch = () => {
     fetch(`/search?metaphorical_term=${metaphorQuery}&meaning=${meaningQuery}`)
       .then((response) => response.json())
@@ -90,13 +107,106 @@ export default function SearchPage() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <Translate sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Search Page
-          </Typography>
-        </Toolbar>
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Translate sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/homePage"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              සිංහල කවි සංචය
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                <MenuItem key="homePageKey" href="/homePage">
+                  <Link href="/homePage" underline="none" color={"inherit"}>
+                    <Typography textAlign="center">Home</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem key="addNewPageKey" href="/addNewPage">
+                  <Link href="/addNewPage" underline="none" color={"inherit"}>
+                    <Typography textAlign="center">Add New</Typography>
+                  </Link>
+                </MenuItem>
+              </Menu>
+            </Box>
+            <Translate sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="/homePage"
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              සිංහල කවි සංචය
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <Button
+                key={"homePageKey"}
+                href="/homePage"
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Home
+              </Button>
+              <Button
+                key={"addNewPageKey"}
+                href="/addNewPage"
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Add New
+              </Button>
+            </Box>
+          </Toolbar>
+        </Container>
       </AppBar>
       <main>
         <Container fixed>
@@ -149,8 +259,7 @@ export default function SearchPage() {
           color="text.secondary"
           component="p"
         >
-          Computer Science and Engineering Department, University of Moratuwa,
-          Sri Lanka
+          Educational Purposes Only
         </Typography>
       </Box>
       {/* End footer */}
