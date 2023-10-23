@@ -19,24 +19,24 @@ This Elasticsearch cluster is the heart of the search engine, where Sinhala poem
 To set up the Sinhala Poems Search Engine locally or deploy it to your own environment, follow these steps:
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/sinhala-poems-search-engine.git
+```bash
+git clone https://github.com/your-username/sinhala-poems-search-engine.git
+```
 
 2. Configure the Elasticsearch connection:
 
 Replace the Elasticsearch cluster URL in the backend configuration with your own if needed.
-Start the frontend and backend:
 
 3. Navigate to the frontend directory and run the frontend application:
 
-```javascript
+```bash
 cd front-end
 npm install
 npm start
 ```
 
 4. Navigate to the backend directory and run the backend application:
-```javascript
+```bash
 cd back-end
 npm install
 npm run dev
@@ -44,6 +44,6 @@ npm run dev
 
 5. Open your web browser and go to http://localhost:3000 to access the frontend.
 
-##Contact
+## Contact
 
 For any questions or inquiries about the Sinhala Poems Search Engine, you can contact me at liyanapathiranasathira@gamil.com
