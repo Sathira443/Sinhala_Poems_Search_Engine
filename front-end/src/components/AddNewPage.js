@@ -17,10 +17,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Link from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
 
-const defaultTheme = createTheme();
 const darkTheme = createTheme({
   palette: {
-    mode: "dark",
+    mode: 'dark',
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#044ff5',
+    },
   },
 });
 
@@ -72,7 +77,7 @@ export default function AddNewPage() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <AppBar position="static">
         <Container maxWidth="xl">

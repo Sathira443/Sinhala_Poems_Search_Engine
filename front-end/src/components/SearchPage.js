@@ -25,10 +25,15 @@ import MenuItem from "@mui/material/MenuItem";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const defaultTheme = createTheme();
 const darkTheme = createTheme({
   palette: {
-    mode: "dark",
+    mode: 'dark',
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#044ff5',
+    },
   },
 });
 
@@ -102,7 +107,7 @@ export default function SearchPage() {
   }, []);
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <AppBar position="static">
         <Container maxWidth="xl">
