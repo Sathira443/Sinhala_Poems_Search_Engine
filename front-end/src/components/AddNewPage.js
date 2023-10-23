@@ -85,7 +85,7 @@ export default function AddNewPage() {
               variant="h6"
               noWrap
               component="a"
-              href="/homePage"
+              href="/"
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
@@ -128,8 +128,8 @@ export default function AddNewPage() {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                <MenuItem key="homePageKey" href="/homePage">
-                  <Link href="/homePage" underline="none" color={"inherit"}>
+                <MenuItem key="homePageKey" href="/">
+                  <Link href="/" underline="none" color={"inherit"}>
                     <Typography textAlign="center">Home</Typography>
                   </Link>
                 </MenuItem>
@@ -145,7 +145,7 @@ export default function AddNewPage() {
               variant="h5"
               noWrap
               component="a"
-              href="/homePage"
+              href="/"
               sx={{
                 mr: 2,
                 display: { xs: "flex", md: "none" },
@@ -162,7 +162,7 @@ export default function AddNewPage() {
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               <Button
                 key={"homePageKey"}
-                href="/homePage"
+                href="/"
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 Home
