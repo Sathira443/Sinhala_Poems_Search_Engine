@@ -90,7 +90,7 @@ export default function HomePage() {
                 </MenuItem>
                 <MenuItem key={"addNewKey"} onClick={handleCloseNavMenu}>
                   <Link href="/addNewPage" underline="none" color={"inherit"}>
-                    <Typography textAlign="center" hr>Add New</Typography>
+                    <Typography textAlign="center">Add New</Typography>
                   </Link>
                 </MenuItem>
               </Menu>

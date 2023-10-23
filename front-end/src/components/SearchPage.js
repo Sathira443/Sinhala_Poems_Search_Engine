@@ -53,7 +53,7 @@ function MetaphorSearchResultTable({ dataJson }) {
               key={index}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell>{row.peom_Line}</TableCell>
+              <TableCell>{row.poem_line}</TableCell>
               <TableCell align="right">{row.poem}</TableCell>
               <TableCell align="right">{row.poet}</TableCell>
               <TableCell align="right">{row.year_of_publish}</TableCell>

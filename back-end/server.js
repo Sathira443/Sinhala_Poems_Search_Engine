@@ -7,8 +7,9 @@ const app = express();
 const port = 5000;
 
 const client = new elasticsearch.Client({
-  host: "http://localhost:9200",
+  host: "https://aava9ugu07:dc99jwhfa@sinhala-poem-search-8504946134.us-east-1.bonsaisearch.net:443",
 });
+
 
 app.use(express.json());
 

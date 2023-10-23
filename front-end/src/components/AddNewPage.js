@@ -42,18 +42,18 @@ export default function AddNewPage() {
     const poet = document.getElementById("poet-insert").value;
     const period = document.getElementById("era-insert").value;
     const year_of_publish = document.getElementById("year-insert").value;
-    const poem_Line = document.getElementById("poem-line-insert").value;
-    const metaphor = document.getElementById("metaphor-insert").value;
+    const poem_line = document.getElementById("poem-line-insert").value;
+    const metaphorical_term = document.getElementById("metaphor-insert").value;
     const meaning = document.getElementById("meaning-insert").value;
     const documentData = {
       poem,
       poet,
       period,
       year_of_publish,
-      poem_Line,
+      poem_line,
       metaphor_present: "yes",
       metaphor_count: "1",
-      metaphor,
+      metaphorical_term,
       meaning
     };
 
