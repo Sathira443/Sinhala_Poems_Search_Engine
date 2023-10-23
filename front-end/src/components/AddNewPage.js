@@ -60,7 +60,7 @@ export default function AddNewPage() {
       meaning
     };
 
-    fetch("/insert", {
+    fetch("https://sinhala-poems-search-engine-backend.onrender.com/insert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

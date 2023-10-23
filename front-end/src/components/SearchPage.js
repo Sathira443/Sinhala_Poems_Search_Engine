@@ -89,7 +89,7 @@ export default function SearchPage() {
   };
 
   const handleSearch = () => {
-    fetch(`/search?metaphorical_term=${metaphorQuery}&meaning=${meaningQuery}`)
+    fetch(`https://sinhala-poems-search-engine-backend.onrender.com/search?metaphorical_term=${metaphorQuery}&meaning=${meaningQuery}`)
       .then((response) => response.json())
       .then((data) => {
         setBackendData(data.map((item) => item._source));
@@ -98,7 +98,7 @@ export default function SearchPage() {
   };
 
   useEffect(() => {
-    fetch("/getAll")
+    fetch("https://sinhala-poems-search-engine-backend.onrender.com/getAll")
       .then((response) => response.json())
       .then((data) => {
         setBackendData(data.map((item) => item._source));

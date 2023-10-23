@@ -1,6 +1,7 @@
 const express = require("express");
 const elasticsearch = require("elasticsearch");
-const path = require("path");
+const cors = require("cors");
+
 
 const app = express();
 
@@ -12,6 +13,7 @@ const client = new elasticsearch.Client({
 
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/getAll", (req, res) => {
   client
