@@ -41,8 +41,6 @@ export default function AddNewPage() {
   };
 
   const handleInsert = () => {
-    console.log("In");
-
     const poem = document.getElementById("poem-insert").value;
     const poet = document.getElementById("poet-insert").value;
     const period = document.getElementById("era-insert").value;
