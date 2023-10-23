@@ -22,22 +22,29 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
+import Pagination from "@mui/material/Pagination";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
     primary: {
-      main: '#1976d2',
+      main: "#1976d2",
     },
     secondary: {
-      main: '#044ff5',
+      main: "#044ff5",
     },
   },
 });
 
-function MetaphorSearchResultTable({ dataJson }) {
+const itemsPerPage = 5;
+
+
+function MetaphorSearchResultTable({ dataJson, currentPage, itemsPerPage }) {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -53,7 +60,7 @@ function MetaphorSearchResultTable({ dataJson }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {dataJson.map((row, index) => (
+          {dataJson.slice(startIndex, endIndex).map((row, index) => (
             <TableRow
               key={index}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -79,6 +86,7 @@ export default function SearchPage() {
   const [meaningQuery, setMeaningQuery] = useState("");
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -89,7 +97,10 @@ export default function SearchPage() {
   };
 
   const handleSearch = () => {
-    fetch(`https://sinhala-poems-search-engine-backend.onrender.com/search?metaphorical_term=${metaphorQuery}&meaning=${meaningQuery}`)
+    setCurrentPage(1);
+    fetch(
+      `https://sinhala-poems-search-engine-backend.onrender.com/search?metaphorical_term=${metaphorQuery}&meaning=${meaningQuery}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setBackendData(data.map((item) => item._source));
@@ -249,7 +260,13 @@ export default function SearchPage() {
                 Search
               </Button>
             </Stack>
-            <MetaphorSearchResultTable dataJson={backendData} />
+            <MetaphorSearchResultTable dataJson={backendData} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
+            <Pagination
+              count={Math.ceil(backendData.length / itemsPerPage)}
+              page={currentPage}
+              color="primary"
+              onChange={(event, page) => setCurrentPage(page)}
+            />
           </Stack>
         </Container>
       </main>
