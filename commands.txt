@@ -5,10 +5,18 @@ GET /amazon-reviews/_search
   }
 }
 
-cd D:\GitHub Projects\DMIR Mini Project
+cd D:\GitHub Projects\Sinhala_Poems_Search_Engine
 
 curl -X DELETE "localhost:9200/sinhala-metaphor-poems?pretty"
 
 curl -X PUT "localhost:9200/sinhala-metaphor-poems?pretty" -H "Content-Type: application/json" -d @mapping_file.json
 
 curl -X POST "localhost:9200/sinhala-metaphor-poems/_bulk?pretty" -H "Content-Type: application/json" --data-binary @sinhala_data_file.json
+
+
+
+curl -X DELETE "https://aava9ugu07:dc99jwhfa@sinhala-poem-search-8504946134.us-east-1.bonsaisearch.net:443/sinhala-metaphor-poems?pretty" --insecure
+
+curl -X PUT "https://aava9ugu07:dc99jwhfa@sinhala-poem-search-8504946134.us-east-1.bonsaisearch.net:443/sinhala-metaphor-poems?pretty" -H "Content-Type: application/json" -d @mapping_file.json --insecure
+
+curl -X POST "https://aava9ugu07:dc99jwhfa@sinhala-poem-search-8504946134.us-east-1.bonsaisearch.net:443/sinhala-metaphor-poems/_bulk?pretty" -H "Content-Type: application/json" --data-binary @sinhala_data_file.json --insecure
