@@ -244,8 +244,8 @@ const itemData = [
     title: "P.B. Wijesundara",
   },
   {
-    img: "https://upload.wikimedia.org/wikipedia/commons/2/24/Saman_Tilakasiri%2C_writer_and_poet_of_Sri_Lanka_.jpg",
-    title: "Saman Thilakasiri",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5gWEwbrSHFvGZYiZC8234ZQetqd_V8zyKz7tV5QzOisJZDYbnBOPH8u-f7PcFT12EGag&usqp=CAU",
+    title: "Chandrarathna Manawasinghe",
   },
   {
     img: "https://i0.wp.com/thuppahis.com/wp-content/uploads/2017/04/aaaa-obey.jpg?ssl=1",
