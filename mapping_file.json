@@ -55,28 +55,40 @@
   },
   "mappings": {
     "properties": {
-      "poet_name": {
+      "poem": {
         "type": "text",
         "analyzer": "standard"
       },
-      "era": {
+      "poet": {
         "type": "text",
         "analyzer": "standard"
       },
-      "publication_year": {
+      "period": {
+        "type": "text",
+        "analyzer": "standard"
+      },
+      "year_of_publish": {
         "type": "date",
         "format": "yyyy"
       },
-      "poems_text": {
+      "poem_line": {
         "type": "text",
         "analyzer": "sinhala_analyzer"
       },
-      "source_metaphor": {
+      "metaphor_present": {
+        "type": "text",
+        "analyzer": "standard"
+      },
+      "metaphor_count": {
+        "type": "text",
+        "analyzer": "standard"
+      },
+      "metaphorical_term": {
         "type": "text",
         "analyzer": "sinhala_analyzer",
         "search_analyzer": "sinhala_search_analyzer"
       },
-      "target_metaphor": {
+      "meaning": {
         "type": "text",
         "analyzer": "sinhala_analyzer",
         "search_analyzer": "sinhala_search_analyzer"
