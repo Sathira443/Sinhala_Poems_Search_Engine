@@ -9,7 +9,7 @@ The frontend of the Sinhala Poems Search Engine is hosted at [https://sinhala-po
 The backend of the Sinhala Poems Search Engine is hosted at [https://sinhala-poems-search-engine-backend.onrender.com](https://sinhala-poems-search-engine-backend.onrender.com). The backend is responsible for handling user requests, communicating with the Elasticsearch cluster, and returning search results to the frontend.
 
 ## Elasticsearch
-Elasticsearch (ES) is a powerful and scalable search engine that is used to store and search Sinhala poems based on metaphors. The Elasticsearch cluster for this project is hosted at the following URL: [https://aava9ugu07:dc99jwhfa@sinhala-poem-search-8504946134.us-east-1.bonsaisearch.net/] (https://aava9ugu07:dc99jwhfa@sinhala-poem-search-8504946134.us-east-1.bonsaisearch.net/)
+Elasticsearch (ES) is a powerful and scalable search engine that is used to store and search Sinhala poems based on metaphors. The Elasticsearch cluster for this project is hosted at the following URL: [https://aava9ugu07:dc99jwhfa@sinhala-poem-search-8504946134.us-east-1.bonsaisearch.net/](https://aava9ugu07:dc99jwhfa@sinhala-poem-search-8504946134.us-east-1.bonsaisearch.net)
 
 
 This Elasticsearch cluster is the heart of the search engine, where Sinhala poems are indexed and can be searched using metaphors.
