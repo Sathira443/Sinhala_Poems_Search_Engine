@@ -23,8 +23,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Link from "@mui/material/Link";
 import MenuItem from "@mui/material/MenuItem";
 import Pagination from "@mui/material/Pagination";
-
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Collapse, List, ListItem, ListItemText } from "@mui/material";
 
 const darkTheme = createTheme({
   palette: {
@@ -40,39 +42,76 @@ const darkTheme = createTheme({
 
 const itemsPerPage = 5;
 
-
 function MetaphorSearchResultTable({ dataJson, currentPage, itemsPerPage }) {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  const [open, setOpen] = React.useState(false);
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Poem Line</TableCell>
-            <TableCell align="right">Poem</TableCell>
-            <TableCell align="right">Poet</TableCell>
-            <TableCell align="right">Year of Publication</TableCell>
-            <TableCell align="right">Era</TableCell>
+            <TableCell />
+            <TableCell>Poem</TableCell>
             <TableCell align="right">Metaphor</TableCell>
             <TableCell align="right">Meaning</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {dataJson.slice(startIndex, endIndex).map((row, index) => (
-            <TableRow
-              key={index}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell>{row.poem_line}</TableCell>
-              <TableCell align="right">{row.poem}</TableCell>
-              <TableCell align="right">{row.poet}</TableCell>
-              <TableCell align="right">{row.year_of_publish}</TableCell>
-              <TableCell align="right">{row.period}</TableCell>
-              <TableCell align="right">{row.metaphorical_term}</TableCell>
-              <TableCell align="right">{row.meaning}</TableCell>
-            </TableRow>
+            <React.Fragment key={`fragmentKey-${index}`}>
+              <TableRow
+                key={`tableRowKey-${index}`}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>
+                  <IconButton
+                    aria-label="expand row"
+                    size="small"
+                    onClick={() => setOpen(!open)}
+                  >
+                    {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                  </IconButton>
+                </TableCell>
+                <TableCell>{row.poem}</TableCell>
+                <TableCell align="right">{row.metaphorical_term}</TableCell>
+                <TableCell align="right">{row.meaning}</TableCell>
+              </TableRow>
+              <TableRow key={`additionalTableRowKey-${index}`}>
+                <TableCell
+                  style={{ paddingBottom: 0, paddingTop: 0 }}
+                  colSpan={6}
+                >
+
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List>
+                      <Typography variant="h6" gutterBottom component="div">
+                        More Details
+                      </Typography>
+                      <ListItem>
+                        <ListItemText
+                          primary="Poem Line"
+                          secondary={row.poem_line}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText primary="Poet" secondary={row.poet} />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText
+                          primary="Year of Publication"
+                          secondary={row.year_of_publish}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText primary="Era" secondary={row.period} />
+                      </ListItem>
+                    </List>
+                  </Collapse>
+                </TableCell>
+              </TableRow>
+            </React.Fragment>
           ))}
         </TableBody>
       </Table>
@@ -260,7 +299,11 @@ export default function SearchPage() {
                 Search
               </Button>
             </Stack>
-            <MetaphorSearchResultTable dataJson={backendData} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
+            <MetaphorSearchResultTable
+              dataJson={backendData}
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+            />
             <Pagination
               count={Math.ceil(backendData.length / itemsPerPage)}
               page={currentPage}
